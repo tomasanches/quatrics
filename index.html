@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualtrics Survey</title>
+    <link rel="shortcut icon" type="image/png" href="./asset/rogers-favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+
+    *,
+    *::before,
+    *::after {
+    box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /* Set core body defaults */
+    body {
+    height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    background-color: rgb(255, 255, 255);
+    }
+
+    /* Make images easier to work with */
+    img,
+    picture {
+    max-width: 100%;
+    display: block;
+    }
+
+    /* Inherit fonts for inputs and buttons */
+    input,
+    button,
+    textarea,
+    select {
+    font: inherit;
+    }
+    .loader-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        padding-inline: 1rem;
+        background-color: rgb(232, 232, 235);
+        border-left: 3px solid red;
+        margin-bottom: 1.5rem;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 3rem;
+        max-width: 800px;
+        margin-inline: auto;
+    }
+    .rogers-logo {
+        width: 150px;
+    }
+
+        .language-wrapper {
+            align-self: end;
+            width: fit-content;
+        }
+
+        select {
+            background-color: white;
+            padding: .1rem;
+            border: 2px solid red;
+            border-radius: 0;
+            color: #43464d;
+        }
+
+        p {
+            align-self: center;
+            font-size: 1rem;
+            text-align: center;
+            color: #43464d;
+        }
+
+        .link-wrapper {
+            align-self: center;
+            display: flex;
+            gap: 2rem;
+            text-align: center;
+            
+        }
+
+        .link {
+            color: #43464d;
+            font-size: .8rem;
+        }
+
+        .expand-wrapper {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+
+            display: flex;
+            gap: .4rem;
+            align-items: center;
+
+            background-color: #c3c2c2;
+            padding: 1rem 2rem;
+            border-top-left-radius: .4rem;
+
+            transition: 300ms
+        }
+
+        @media only screen and (max-width: 750px) {
+            .expand-wrapper {
+                display: none;
+            }
+        }
+
+        .expand-wrapper:hover {
+            background-color: #da291c;
+        }
+
+        .expand-para {
+            font-size: .8rem;
+            color: #fff;
+        }
+
+        .expand-icon {
+            fill: #fff;
+            /* background-color: #fff; */
+        }
+
+</style>
+
+<body>
+    <header>
+        <div class="loader-wrapper">
+            <p>0%</p>
+            <p>100%</p>
+        </div>
+    </header>
+    <main>
+        <img src="./asset/Rogers_Communications-Logo.wine.svg" alt="" class="rogers-logo">
+        <div class="language-wrapper">
+            <select name="language" id="language" onchange="changeContent()">
+                <option value="English">English</option>
+                <option value="French">Français</option>
+            </select>
+        </div>
+        <p class="content">your survey session has expired and you cannot continue taking survey</p>
+        <div class="link-wrapper">
+            <a href="https://www.rogersmembercentre.com" class="link">Qualtrics Privacy</a>
+            <a href="https://www.rogersmembercentre.com" class="link">Rogers Privacy</a>
+        </div>
+    </main>
+    <footer>
+        <div class="expand-wrapper">
+            <p class="expand-para">Produced by Qualtrics</p>
+            <svg xmlns="http://www.w3.org/2000/svg" height=".7em" viewBox="0 0 448 512" class="expand-icon">
+                <path d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z"/>
+            </svg>
+        </div>
+    </footer>
+    <script>
+        function changeContent() {
+            var select = document.querySelector("#language");
+            var changeText = document.querySelector(".content");
+            var selectedValue = select.value;
+            var link = document.querySelectorAll(".link");
+            var produce = document.querySelector(".expand-para");
+
+        if(selectedValue === "French" ) {
+            changeText.textContent = "Votre session a expiré et vous ne pouvez plus répondre à cette enquête.";
+            link[0].textContent = "Qualtrics Confidentialité ";
+            link[1].textContent = "Rogers Confidentialité";
+            produce.textContent = "Produit par Qualtrics"
+            }
+        else {
+            changeText.textContent = "your survey session has expired and you cannot continue taking survey"
+            link[0].textContent = "Qualtrics Privacy";
+            link[1].textContent = "Rogers Privacy";
+            produce.textContent = "Produced by Qualtrics"
+        }
+        }
+    </script>
+</body>
+</html>
